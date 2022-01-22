@@ -1,4 +1,5 @@
 import math
+from Config import MovementStopDetectionTime
 
 
 def FindMin (Array):
@@ -107,3 +108,16 @@ def CreateNumberOfArrays(NumberOfArrays):
     for i in range(NumberOfArrays + 1):
         globals()["column" + str(i)] = []
     return
+
+#return time of movement in Milli seconds
+def CalculateTimeOfMovement(Array):
+
+    StartTime = Array[0]
+    for Item in Array:
+        EndTime = Item
+
+    TimeOfMovement = (EndTime - StartTime)                                              #Time is calculated in MicroSeconds
+    TimeOfMovement = TimeOfMovement - (MovementStopDetectionTime * 1000000)             #Time of stoppage detection is subtracted from the time calculated
+    TimeOfMovement = TimeOfMovement / 1000                                              #Time is convereted to MilliSeconds
+
+    return TimeOfMovement

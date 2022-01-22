@@ -47,9 +47,6 @@ for Column in AccelerometerData:
     column16.append(Column[2])
     column17.append(Column[3])
 
-###################################################################
-###################################################################
-###################################################################
 
 
 
@@ -76,9 +73,7 @@ RWZ = CLC.ConvertStrArrayToDouble(column13)
 AccX = CLC.ConvertStrArrayToDouble(column15)
 AccY = CLC.ConvertStrArrayToDouble(column16)
 AccZ = CLC.ConvertStrArrayToDouble(column17)
-###################################################################
-###################################################################
-###################################################################
+
 
 ###################################################################
 ###############   Signals pre-processing   ########################
@@ -145,77 +140,6 @@ AccZ = scipy.signal.medfilt(AccZ,3)
 # plt.plot(AccX)
 # plt.show()
 
-#Normalize high values
-# for item in RHX:
-#     if item > (MeanValueRHX * 1.5):
-#         item = (MeanValueRHX * 1.5)
-#
-# for item in RHY:
-#     if item > (MeanValueRHY * 1.5):
-#         item = (MeanValueRHY * 1.5)
-#
-# for item in RHZ:
-#     if item > (MeanValueRHZ * 1.5):
-#         item = (MeanValueRHZ * 1.5)
-#
-# for item in RSX:
-#     if item > (MeanValueRSX * 1.5):
-#         item = (MeanValueRSX * 1.5)
-#
-# for item in RSY:
-#     if item > (MeanValueRSY * 1.5):
-#         item = (MeanValueRSY * 1.5)
-#
-# for item in RSZ:
-#     if item > (MeanValueRSZ * 1.5):
-#         item = (MeanValueRSZ * 1.5)
-#
-# for item in REX:
-#     if item > (MeanValueREX * 1.5):
-#         item = (MeanValueREX * 1.5)
-#
-# for item in REY:
-#     if item > (MeanValueREY * 1.5):
-#         item = (MeanValueREY * 1.5)
-#
-# for item in REZ:
-#     if item > (MeanValueREZ * 1.5):
-#         item = (MeanValueREZ * 1.5)
-#
-# for item in RWX:
-#     if item > (MeanValueRWX * 1.5):
-#         item = (MeanValueRWX * 1.5)
-#
-# for item in RWY:
-#     if item > (MeanValueRWY * 1.5):
-#         item = (MeanValueRWY * 1.5)
-#
-# for item in RWZ:
-#     if item > (MeanValueRWZ * 1.5):
-#         item = (MeanValueRWZ * 1.5)
-
-
-###################################################################
-###################################################################
-###################################################################
-
-
-
-
-
-
-
-###################################################################
-#################    Feature Extraction   #########################
-###################################################################
-
-
-###################################################################
-###################################################################
-###################################################################
-
-
-
 
 
 
@@ -277,13 +201,9 @@ ROMAccZ = CLC.CalcROM(AccZ)
 OscAccZ = CLC.CalculateOscilliations(AccZ)
 
 
-###################################################################
-###################################################################
-###################################################################
-
-
-
-
+#Calculate Time
+TimeOfMovement = CLC.CalculateTimeOfMovement(TimeStamp)
+print (TimeOfMovement)
 
 ###################################################################
 ##############   Writing Features To CSV File   ###################
