@@ -4,25 +4,23 @@ import Calculations as CLC
 import matplotlib.pyplot as plt
 import scipy.signal
 
-
-
 ###################################################################
 ######## Import Data from CSV to String Arrays    #################
 ###################################################################
-#Open FIles
-KinectData = csv.reader(open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\KinectHandsData.csv"), delimiter=",")
-AccelerometerData = csv.reader(open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\accelerometer.csv"), delimiter=",")
+# Open FIles
+KinectData = csv.reader(open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\KinectHandsData.csv"),  delimiter=",")
+AccelerometerData = csv.reader(open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\accelerometer.csv"),  delimiter=",")
 
-#Create arrays to import data into
+# Create arrays to import data into
 NumberOfArrays = 23
 i = 1
 for i in range(NumberOfArrays + 1):
     globals()["column" + str(i)] = []
 
-#Skip First row
+# Skip First row
 next(KinectData)
 
-#Data import
+# Data import
 for Column in KinectData:
     column1.append(Column[0])
     column2.append(Column[1])
@@ -44,7 +42,7 @@ for Column in KinectData:
     column22.append(Column[17])
     column23.append(Column[18])
 
-#Skip First row
+# Skip First row
 next(AccelerometerData)
 
 for Column in AccelerometerData:
@@ -52,9 +50,6 @@ for Column in AccelerometerData:
     column15.append(Column[1])
     column16.append(Column[2])
     column17.append(Column[3])
-
-
-
 
 ###################################################################
 #########     Convert String Arrays to Double   ###################
@@ -85,7 +80,6 @@ AccX = CLC.ConvertStrArrayToDouble(column15)
 AccY = CLC.ConvertStrArrayToDouble(column16)
 AccZ = CLC.ConvertStrArrayToDouble(column17)
 
-
 ###################################################################
 ###############   Signals pre-processing   ########################
 ###################################################################
@@ -115,31 +109,28 @@ CLC.RemoveOutOfRange(SCX)
 CLC.RemoveOutOfRange(SCY)
 CLC.RemoveOutOfRange(SCZ)
 
-MedianFilterWindow = 3
+RHX = scipy.signal.medfilt(RHX, 3)
+RHY = scipy.signal.medfilt(RHY, 3)
+RHZ = scipy.signal.medfilt(RHZ, 3)
+RSX = scipy.signal.medfilt(RSX, 3)
+RSY = scipy.signal.medfilt(RSY, 3)
+RSZ = scipy.signal.medfilt(RSZ, 3)
+REX = scipy.signal.medfilt(REX, 3)
+REY = scipy.signal.medfilt(REY, 3)
+REZ = scipy.signal.medfilt(REZ, 3)
+RWX = scipy.signal.medfilt(RWX, 3)
+RWY = scipy.signal.medfilt(RWY, 3)
+RWZ = scipy.signal.medfilt(RWZ, 3)
+LSX = scipy.signal.medfilt(LSX, 3)
+LSY = scipy.signal.medfilt(LSY, 3)
+LSZ = scipy.signal.medfilt(LSZ, 3)
+SCX = scipy.signal.medfilt(SCX, 3)
+SCY = scipy.signal.medfilt(SCY, 3)
+SCZ = scipy.signal.medfilt(SCZ, 3)
 
-RHX = scipy.signal.medfilt(RHX, MedianFilterWindow)
-RHY = scipy.signal.medfilt(RHY, MedianFilterWindow)
-RHZ = scipy.signal.medfilt(RHZ, MedianFilterWindow)
-RSX = scipy.signal.medfilt(RSX, MedianFilterWindow)
-RSY = scipy.signal.medfilt(RSY, MedianFilterWindow)
-RSZ = scipy.signal.medfilt(RSZ, MedianFilterWindow)
-REX = scipy.signal.medfilt(REX, MedianFilterWindow)
-REY = scipy.signal.medfilt(REY, MedianFilterWindow)
-REZ = scipy.signal.medfilt(REZ, MedianFilterWindow)
-RWX = scipy.signal.medfilt(RWX, MedianFilterWindow)
-RWY = scipy.signal.medfilt(RWY, MedianFilterWindow)
-RWZ = scipy.signal.medfilt(RWZ, MedianFilterWindow)
-LSX = scipy.signal.medfilt(LSX, MedianFilterWindow)
-LSY = scipy.signal.medfilt(LSY, MedianFilterWindow)
-LSZ = scipy.signal.medfilt(LSZ, MedianFilterWindow)
-SCX = scipy.signal.medfilt(SCX, MedianFilterWindow)
-SCY = scipy.signal.medfilt(SCY, MedianFilterWindow)
-SCZ = scipy.signal.medfilt(SCZ, MedianFilterWindow)
-
-
-AccX = scipy.signal.medfilt(AccX,MedianFilterWindow)
-AccY = scipy.signal.medfilt(AccY,MedianFilterWindow)
-AccZ = scipy.signal.medfilt(AccZ,MedianFilterWindow)
+AccX = scipy.signal.medfilt(AccX, 3)
+AccY = scipy.signal.medfilt(AccY, 3)
+AccZ = scipy.signal.medfilt(AccZ, 3)
 
 # plt.title('Acceleration in Z-axis Postprocessing')
 # plt.xlabel('Frames')
@@ -147,8 +138,6 @@ AccZ = scipy.signal.medfilt(AccZ,MedianFilterWindow)
 # # print(RHX)
 # plt.plot(AccX)
 # plt.show()
-
-
 
 
 ###################################################################
@@ -170,7 +159,7 @@ MeanValueRSX = CLC.CalculateMeanValue(RSX)
 ROMRSY = CLC.CalcROM(RSY)
 MeanValueRSY = CLC.CalculateMeanValue(RSY)
 
-ROMRSZ = CLC.CalcROM(RSZ )
+ROMRSZ = CLC.CalcROM(RSZ)
 MeanValueRSZ = CLC.CalculateMeanValue(RSZ)
 
 ROMREX = CLC.CalcROM(REX)
@@ -179,16 +168,16 @@ MeanValueREX = CLC.CalculateMeanValue(REX)
 ROMREY = CLC.CalcROM(REY)
 MeanValueREY = CLC.CalculateMeanValue(REY)
 
-ROMREZ = CLC.CalcROM(REZ )
+ROMREZ = CLC.CalcROM(REZ)
 MeanValueREZ = CLC.CalculateMeanValue(REZ)
 
-ROMRWX = CLC.CalcROM(RWX )
+ROMRWX = CLC.CalcROM(RWX)
 MeanValueRWX = CLC.CalculateMeanValue(RWX)
 
-ROMRWY = CLC.CalcROM(RWY )
+ROMRWY = CLC.CalcROM(RWY)
 MeanValueRWY = CLC.CalculateMeanValue(RWY)
 
-ROMRWZ = CLC.CalcROM(RWZ )
+ROMRWZ = CLC.CalcROM(RWZ)
 MeanValueRWZ = CLC.CalculateMeanValue(RWZ)
 
 ROMLSX = CLC.CalcROM(LSX)
@@ -209,79 +198,90 @@ MeanValueSCY = CLC.CalculateMeanValue(SCY)
 ROMSCZ = CLC.CalcROM(SCZ)
 MeanValueSCZ = CLC.CalculateMeanValue(SCZ)
 
-
-
-
 MaxAccX = CLC.FindMax(AccX)
 ROMAccX = CLC.CalcROM(AccX)
 OscAccX = CLC.CalculateOscilliations(AccX)
-
 
 MaxAccY = CLC.FindMax(AccY)
 ROMAccY = CLC.CalcROM(AccY)
 OscAccY = CLC.CalculateOscilliations(AccY)
 
-
 MaxAccZ = CLC.FindMax(AccZ)
 ROMAccZ = CLC.CalcROM(AccZ)
 OscAccZ = CLC.CalculateOscilliations(AccZ)
 
-
-#Calculate Time
+# Calculate Time
 TimeOfMovement = CLC.CalculateTimeOfMovement(TimeStamp)
-print (TimeOfMovement)
+
 
 ###################################################################
 ##############   Writing Features To CSV File   ###################
 ###################################################################
-headerKinect = ['ROMRHX', 'ROMRHY', 'ROMRHZ', 'ROMRSX', 'ROMRSY', 'ROMRSZ', 'ROMREX', 'ROMREY', 'ROMREZ', 'ROMRWX', 'ROMRWY', 'ROMRWZ', 'ROMLSX', 'ROMLSY', 'ROMLSZ', 'ROMSCX', 'ROMSCY', 'ROMSCZ']
-valuesKinect = [ROMRHX, ROMRHY, ROMRHZ, ROMRSX, ROMRSY, ROMRSZ, ROMREX, ROMREY, ROMREZ, ROMRWX, ROMRWY, ROMRWZ, ROMLSX, ROMLSY, ROMLSZ, ROMSCX, ROMSCY, ROMSCZ]
 
-headerAcc =['MaxAccX', 'OscAccX', 'MaxAccY', 'OscAccY', 'MaxAccZ', 'OscAccZ']
-valuesAcc = [MaxAccX, OscAccX, MaxAccY, OscAccY, MaxAccZ, OscAccZ]
+headerROM = ['ROMRHX', 'ROMRHY', 'ROMRHZ', 'ROMREX', 'ROMREY', 'ROMREZ', 'ROMRWX', 'ROMRWY', 'ROMRWZ']
+valuesROM = [ROMRHX, ROMRHY, ROMRHZ, ROMREX, ROMREY, ROMREZ, ROMRWX, ROMRWY, ROMRWZ]
 
-MotionScore = ['ScoreOfMotion']
-ScoreOfMotion = 1
+headerCompensation = ['RSX', 'RSY', 'RSZ', 'LSX', 'LSY', 'LSZ', 'SCX', 'SCY', 'SCZ']
+valuesCompensation = [RSX, RSY, RSZ, LSX, LSY, LSZ, SCX, SCY, SCZ]
 
-#Create an empty string list to append header's and values to
-header = []
-values = []
+headerSmoothness = ['MaxAccX', 'OscAccX', 'MaxAccY', 'OscAccY', 'MaxAccZ', 'OscAccZ']
+valuesSmoothness = [MaxAccX, OscAccX, MaxAccY, OscAccY, MaxAccZ, OscAccZ]
 
-
-
-
-
-#Append Headers to one empty list 'header'
-for item in headerKinect:
-    header.append(item)
-for item in headerAcc:
-    header.append(item)
-# for item in MotionScore:
-#     header.append(item)
-
-#Append Values to one empty list 'values'
-for item in valuesKinect:
-    values.append(item)
-for item in valuesAcc:
-    values.append(item)
-#values.append(ScoreOfMotion)
-
+headerTime = ['TimeOfMovement']
+valuesTime = [TimeOfMovement]
 
 
 
 # check if file already exists
-IsFileFound = os.path.isfile(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\FeaturesExtracted.csv")
-
-
+IsROMFound = os.path.isfile(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\RangeOfMotion.csv")
 
 # write to CSV file
-f = open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\FeaturesExtracted.csv", 'a', newline='')
+f = open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\RangeOfMotion.csv", 'a', newline='')
 writer = csv.writer(f)
 # if file was just created, Add header
-if not IsFileFound:
-    writer.writerow(header)
+if not IsROMFound:
+    writer.writerow(headerROM)
 
-writer.writerow(values)
+writer.writerow(valuesROM)
+f.close()
+
+
+IsCompensationFound = os.path.isfile(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\Compensation.csv")
+
+# write to CSV file
+f = open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\Compensation.csv", 'a', newline='')
+writer = csv.writer(f)
+# if file was just created, Add header
+if not IsCompensationFound:
+    writer.writerow(headerCompensation)
+
+writer.writerow(valuesCompensation)
+f.close()
+
+
+IsSmoothnessFound = os.path.isfile(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\Smoothness.csv")
+
+# write to CSV file
+f = open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\Smoothness.csv", 'a', newline='')
+writer = csv.writer(f)
+# if file was just created, Add header
+if not IsSmoothnessFound:
+    writer.writerow(headerSmoothness)
+
+writer.writerow(valuesSmoothness)
+f.close()
+
+
+IsTimeFound = os.path.isfile(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\TimeOfMovement.csv")
+
+# write to CSV file
+f = open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\TimeOfMovement.csv", 'a', newline='')
+writer = csv.writer(f)
+# if file was just created, Add header
+if not IsTimeFound:
+    writer.writerow(headerTime)
+
+writer.writerow(valuesTime)
 f.close()
 
 ###################################################################
