@@ -5,11 +5,28 @@ import matplotlib.pyplot as plt
 import scipy.signal
 
 ###################################################################
+########### Determine Which folder to get data from  ##############
+###################################################################
+#Source Folder to import Data from
+MainSourceFolder = r"D:\Work\Masters\Thesis\Third trial\Data Collected\\"
+MainSubfolder   = "Third Collection"
+DataCategory = ["Fully", "Partially", "No movement"]
+SampleNumber = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eight", "Nine", "Ten", "Eleven", "Tweleve", "Thirtheen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty", "Twentyone", "TwentyTwo", "TwentyThree"]
+
+#Fully = 0, partially =1, No movement =2
+DataCategoryIndex = 0
+SampleNumberIndex = 0
+
+KinectDataSource        = MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[SampleNumberIndex] + '\\' + "KinectHandsData.csv"
+AccelerometerDataSource = MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[SampleNumberIndex] + '\\' + "accelerometer.csv"
+
+
+###################################################################
 ######## Import Data from CSV to String Arrays    #################
 ###################################################################
 # Open FIles
-KinectData = csv.reader(open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\KinectHandsData.csv"),  delimiter=",")
-AccelerometerData = csv.reader(open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\accelerometer.csv"),  delimiter=",")
+KinectData = csv.reader(open(KinectDataSource),  delimiter=",")
+AccelerometerData = csv.reader(open(AccelerometerDataSource),  delimiter=",")
 
 # Create arrays to import data into
 NumberOfArrays = 23

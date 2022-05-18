@@ -7,11 +7,29 @@ import scipy.signal
 
 
 ###################################################################
+########### Determine Which folder to get data from  ##############
+###################################################################
+#Source Folder to import Data from
+MainSourceFolder = r"D:\Work\Masters\Thesis\Third trial\Data Collected\\"
+MainSubfolder   = "Third Collection"
+DataCategory = ["Fully", "Partially", "No movement"]
+SampleNumber = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eight", "Nine", "Ten", "Eleven", "Tweleve", "Thirtheen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty", "Twentyone", "TwentyTwo", "TwentyThree"]
+
+#Fully = 0, partially =1, No movement =2
+DataCategoryIndex = 2
+SampleNumberIndex = 4
+
+KinectDataSource        = MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[SampleNumberIndex] + '\\' + "KinectHandsData.csv"
+AccelerometerDataSource = MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[SampleNumberIndex] + '\\' + "accelerometer.csv"
+
+print('Processing Data from folder:')
+print(MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[SampleNumberIndex])
+###################################################################
 ######## Import Data from CSV to String Arrays    #################
 ###################################################################
-#Open FIles
-KinectData = csv.reader(open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\KinectHandsData.csv"), delimiter=",")
-AccelerometerData = csv.reader(open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\accelerometer.csv"), delimiter=",")
+# Open FIles
+KinectData = csv.reader(open(KinectDataSource),  delimiter=",")
+AccelerometerData = csv.reader(open(AccelerometerDataSource),  delimiter=",")
 
 #Create arrays to import data into
 NumberOfArrays = 23
@@ -234,8 +252,8 @@ print (TimeOfMovement)
 ###################################################################
 ##############   Writing Features To CSV File   ###################
 ###################################################################
-headerKinect = ['ROMRHX', 'ROMRHY', 'ROMRHZ', 'ROMRSX', 'ROMRSY', 'ROMRSZ', 'ROMREX', 'ROMREY', 'ROMREZ', 'ROMRWX', 'ROMRWY', 'ROMRWZ', 'ROMLSX', 'ROMLSY', 'ROMLSZ', 'ROMSCX', 'ROMSCY', 'ROMSCZ']
-valuesKinect = [ROMRHX, ROMRHY, ROMRHZ, ROMRSX, ROMRSY, ROMRSZ, ROMREX, ROMREY, ROMREZ, ROMRWX, ROMRWY, ROMRWZ, ROMLSX, ROMLSY, ROMLSZ, ROMSCX, ROMSCY, ROMSCZ]
+headerKinect = ['ROMRHX', 'ROMRHY', 'ROMRHZ', 'ROMRSX', 'ROMRSY', 'ROMRSZ', 'ROMREX', 'ROMREY', 'ROMREZ', 'ROMRWX', 'ROMRWY', 'ROMRWZ', 'ROMLSX', 'ROMLSY', 'ROMLSZ', 'ROMSCX', 'ROMSCY', 'ROMSCZ', 'MovementTime']
+valuesKinect = [ROMRHX, ROMRHY, ROMRHZ, ROMRSX, ROMRSY, ROMRSZ, ROMREX, ROMREY, ROMREZ, ROMRWX, ROMRWY, ROMRWZ, ROMLSX, ROMLSY, ROMLSZ, ROMSCX, ROMSCY, ROMSCZ, TimeOfMovement]
 
 headerAcc =['MaxAccX', 'OscAccX', 'MaxAccY', 'OscAccY', 'MaxAccZ', 'OscAccZ']
 valuesAcc = [MaxAccX, OscAccX, MaxAccY, OscAccY, MaxAccZ, OscAccZ]

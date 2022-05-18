@@ -1,6 +1,6 @@
 import csv
 
-from sklearn.svm import OneClassSVM
+from sklearn.ensemble import IsolationForest
 from numpy import genfromtxt, where, quantile
 import matplotlib.pyplot as plt
 import Calculations as CLC
@@ -12,13 +12,13 @@ TrainData   = genfromtxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\
 TestData    = genfromtxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\FeaturesExtracted_TestData.csv", skip_header=1, delimiter=',')
 # print(TrainData)
 
-svm = OneClassSVM(kernel='rbf', degree= 3, gamma='scale', nu=0.2)
-print(svm,"\n")
-svm.fit(TrainData)
+Model = IsolationForest(random_state=0)
+print(Model, "\n")
+Model.fit(TrainData)
 
 
-pred = svm.predict(TestData)
-scores = svm.score_samples(TestData)
+pred = Model.predict(TestData)
+scores = Model.score_samples(TestData)
 
 # x= [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 #
