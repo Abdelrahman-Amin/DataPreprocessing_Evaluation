@@ -24,14 +24,14 @@ X, y = make_classification(n_samples=NumberOfSamplesToBeGenerated, n_features=25
 ConcatenatedData =  numpy.concatenate([TrainData, X])
 
 #Count Train Data Samples
-i = 0
+NumberOfTrainDataSamples = 0
 for item in TrainData:
-    i = i +1
-print('\nNumber of items in TrainData is:', i)
+    NumberOfTrainDataSamples = NumberOfTrainDataSamples +1
+print('\nNumber of items in TrainData is:', NumberOfTrainDataSamples)
 
 #Create Data Labels
-NumberOfZeros = NumberOfSamplesToBeGenerated - i
-DataLabels = [1] * i + [0] * NumberOfSamplesToBeGenerated
+NumberOfZeros = NumberOfSamplesToBeGenerated - NumberOfTrainDataSamples
+DataLabels = [1] * NumberOfTrainDataSamples + [0] * NumberOfSamplesToBeGenerated
 
 
 
@@ -53,12 +53,19 @@ DataLabels = [1] * i + [0] * NumberOfSamplesToBeGenerated
 sm = SMOTE()
 X_resampled, y_resampled = sm.fit_resample(ConcatenatedData, DataLabels)
 
+####################################################################################################
+######################## Delete the other class created to smote ###################################
+####################################################################################################
+DeleteCounter = 0
+for DeleteCounter in range(NumberOfSamplesToBeGenerated):
+    X_resampled = numpy.delete(X_resampled, NumberOfTrainDataSamples, 0)
+    DeleteCounter = DeleteCounter + 1
+
 #Count Train Data Samples
 i = 0
 for item in X_resampled:
     i = i +1
 print('\nNumber of items in Resampled Data is:', i)
-
 
 # print(y)
 savetxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\Resampled.csv", X_resampled, delimiter=",")
